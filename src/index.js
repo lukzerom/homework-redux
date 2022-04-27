@@ -8,19 +8,35 @@ import store, { history } from "./store";
 import { ConnectedRouter } from "connected-react-router/immutable";
 import { Provider } from "react-redux";
 import Demo from "./components/Demo";
+import Homework from "./components/Homework";
+import StudentDetails from "./components/StudentDetails";
+import AddStudent from "./components/AddStudent";
+import NotificationProvider from "./components/NotificationProvider";
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <Switch>
-        <Route path="/demo">
-          <Demo />
-        </Route>
-        <Route path="/">
-          <App />
-        </Route>
-      </Switch>
-    </ConnectedRouter>
+    <NotificationProvider>
+      <ConnectedRouter history={history}>
+        <Switch>
+          <Route path="/demo">
+            <Demo />
+          </Route>
+          <Route path="/homework/:id">
+            <StudentDetails />
+          </Route>
+          <Route path="/homework">
+            <Homework />
+          </Route>
+          <Route path="/add_student">
+            <AddStudent />
+          </Route>
+
+          <Route path="/">
+            <App />
+          </Route>
+        </Switch>
+      </ConnectedRouter>
+    </NotificationProvider>
   </Provider>,
   document.getElementById("root")
 );

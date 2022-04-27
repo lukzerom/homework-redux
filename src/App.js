@@ -3,7 +3,8 @@ import "./App.css";
 import Button from "@material-ui/core/Button";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Box, Fab, Paper, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
+import NotificationProvider from "./components/NotificationProvider";
 
 function App() {
   const [counter, setCounter] = useState(0);
@@ -42,6 +43,13 @@ function App() {
           <Link to="/demo">
             <Button variant="outlined" color="secondary">
               Redux Saga DEMO
+            </Button>
+          </Link>
+        </Box>
+        <Box my={10}>
+          <Link to="/homework">
+            <Button variant="contained" color="info">
+              Homework
             </Button>
           </Link>
         </Box>
