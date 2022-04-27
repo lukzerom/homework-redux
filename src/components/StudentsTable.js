@@ -23,18 +23,14 @@ import { filterStudents } from "../actions/homeworkActions";
 import capitalizeFirstLetter from "../utils/capitalizeFirstLetter";
 import moment from "moment";
 
-function StudentsTable({
-  students = [],
-  handleFilterStudents,
-  filteredStudents = [],
-}) {
-  const [studentsData, setStudentsData] = useState([]);
+function StudentsTable({ students, handleFilterStudents, filteredStudents }) {
+  const [studentsData, setStudentsData] = useState(new Map());
   const [searchValue, setSearchValue] = useState("");
 
   const inputRef = useRef();
 
   useEffect(() => {
-    if (filteredStudents.length > 0) {
+    if (filteredStudents.size > 0) {
       setStudentsData(filteredStudents);
     } else {
       setStudentsData(students);
@@ -51,9 +47,9 @@ function StudentsTable({
 
   const shouldDisplayData = useMemo(
     () =>
-      !studentsData.length > 0 ||
-      !(searchValue.length !== 0 && filteredStudents.length === 0),
-    [filteredStudents.length, searchValue.length, studentsData.length]
+      !studentsData.size > 0 ||
+      !(searchValue.length !== 0 && filteredStudents.size === 0),
+    [filteredStudents.size, searchValue.size, studentsData.size]
   );
 
   return (
@@ -77,23 +73,25 @@ function StudentsTable({
         </TableHead>
         <TableBody>
           {shouldDisplayData ? (
-            studentsData.length > 0 &&
+            studentsData.size > 0 &&
             studentsData.map((student) => (
-              <TableRow key={student.id}>
+              <TableRow key={student.get("id")}>
                 <TableCell component="th" scope="row">
-                  {student.lastName}
+                  {student.get("lastName")}
                 </TableCell>
-                <TableCell align="right">{student.firstName || "-"}</TableCell>
+                <TableCell align="right">
+                  {student.get("firstName") || "-"}
+                </TableCell>
                 <TableCell align="right">
                   {capitalizeFirstLetter(
-                    student?.gender?.toLocaleLowerCase() || "-"
+                    student?.get("gender")?.toLocaleLowerCase() || "-"
                   )}
                 </TableCell>
                 <TableCell align="right">
-                  {moment(student.created).format("DD MMM YYYY")}
+                  {moment(student.get("created")).format("DD MMM YYYY")}
                 </TableCell>
                 <TableCell align="right">
-                  <Link to={`${window.location.pathname}/${student.id}`}>
+                  <Link to={`${window.location.pathname}/${student.get("id")}`}>
                     <Button variant="contained" color="primary">
                       Details
                     </Button>
@@ -120,9 +118,9 @@ const mapDispatchToProps = {
 };
 
 StudentsTable.propTypes = {
-  students: PropTypes.array.isRequired,
+  students: PropTypes.object.isRequired,
   handleFilterStudents: PropTypes.func,
-  filteredStudents: PropTypes.array.isRequired,
+  filteredStudents: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsTable);

@@ -1,4 +1,4 @@
-import { call, put } from "redux-saga/effects";
+import { call, delay, put } from "redux-saga/effects";
 import { setNotification, setStudents } from "../../actions/homeworkActions";
 import { history } from "../../store";
 
@@ -15,8 +15,6 @@ export default function* updateStudentDetails(value) {
         timeout: 5000,
       })
     );
-    const students = yield call(getStudents);
-    yield put(setStudents(students));
   } catch (e) {
     console.error("Shit happens", e);
   } finally {

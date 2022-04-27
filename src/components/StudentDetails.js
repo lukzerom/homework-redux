@@ -43,19 +43,21 @@ function StudentDetails({ handleFetchStudentDetails, studentDetails }) {
               <Grid item={true} container>
                 <Grid item={true} xs={6}>
                   <Box p={2}>
-                    First Name: {studentDetails?.firstName || "-"}
+                    First Name: {studentDetails?.get("firstName") || "-"}
                   </Box>
                 </Grid>
                 <Grid item={true} xs={6}>
-                  <Box p={2}>Last Name: {studentDetails?.lastName || "-"} </Box>
+                  <Box p={2}>
+                    Last Name: {studentDetails?.get("lastName") || "-"}{" "}
+                  </Box>
                 </Grid>
               </Grid>
               <Grid item={true} container>
                 <Grid item={true} xs={6}>
-                  <Box p={2}> Id: {studentDetails?.id || "-"}</Box>
+                  <Box p={2}> Id: {studentDetails?.get("id") || "-"}</Box>
                 </Grid>
                 <Grid item={true} xs={6}>
-                  <Box p={2}> Email: {studentDetails?.email || "-"} </Box>
+                  <Box p={2}>Email: {studentDetails?.get("email") || "-"} </Box>
                 </Grid>
               </Grid>
               <Grid item={true} container>
@@ -63,14 +65,16 @@ function StudentDetails({ handleFetchStudentDetails, studentDetails }) {
                   <Box p={2}>
                     Gender:{" "}
                     {capitalizeFirstLetter(
-                      studentDetails?.gender?.toLocaleLowerCase() || "-"
+                      studentDetails?.get("gender")?.toLocaleLowerCase() || "-"
                     )}
                   </Box>
                 </Grid>
                 <Grid item={true} xs={6}>
                   <Box p={2}>
                     Favourite Subjects:{" "}
-                    {String(studentDetails?.favouriteSubjects || "-")}
+                    {String(
+                      Array.from(studentDetails?.get("favouriteSubjects") || [])
+                    ) || "-"}
                   </Box>
                 </Grid>
               </Grid>
@@ -78,14 +82,16 @@ function StudentDetails({ handleFetchStudentDetails, studentDetails }) {
                 <Grid item={true} xs={6}>
                   <Box p={2}>
                     Total Time in books :{" "}
-                    {studentDetails?.totalSpentInBooks || "-"}
+                    {studentDetails?.get("totalSpentInBooks") || "-"}
                   </Box>
                 </Grid>
                 <Grid item={true} xs={6}>
                   <Box p={2}>
                     Created at:{" "}
-                    {studentDetails?.created
-                      ? moment(studentDetails?.created).format("DD MMM YYYY")
+                    {studentDetails?.get("created")
+                      ? moment(studentDetails?.get("created")).format(
+                          "DD MMM YYYY"
+                        )
                       : "-"}
                   </Box>
                 </Grid>

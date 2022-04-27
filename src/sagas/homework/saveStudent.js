@@ -14,8 +14,6 @@ export default function* saveStudent(data) {
         timeout: 5000,
       })
     );
-    const students = yield call(getStudents);
-    yield put(setStudents(students));
   } catch (e) {
     console.error("Shit happens", e);
   } finally {

@@ -18,9 +18,12 @@ const NotificationProvider = ({
     <div>
       {children}
 
-      <Snackbar open={Boolean(notification.message)} onClose={handleClose}>
+      <Snackbar
+        open={Boolean(notification.get("message"))}
+        onClose={handleClose}
+      >
         <Alert severity="success" sx={{ width: "100%" }} onClose={handleClose}>
-          {notification.message}
+          {notification.get("message")}
         </Alert>
       </Snackbar>
     </div>

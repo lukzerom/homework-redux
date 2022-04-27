@@ -54,12 +54,13 @@ function StudentDetailsForm({
   useEffect(() => {
     if (isEditing && studentDetails) {
       setFormData({
-        email: studentDetails.email || "",
-        firstName: studentDetails.firstName || "",
-        lastName: studentDetails.lastName || "",
-        gender: studentDetails.gender || "MALE",
-        favouriteSubjects: studentDetails.favouriteSubjects || [],
-        totalSpentInBooks: studentDetails.totalSpentInBooks || "",
+        email: studentDetails.get("email") || "",
+        firstName: studentDetails.get("firstName") || "",
+        lastName: studentDetails.get("lastName") || "",
+        gender: studentDetails.get("gender") || "MALE",
+        favouriteSubjects:
+          Array.from(studentDetails.get("favouriteSubjects")) || [],
+        totalSpentInBooks: studentDetails.get("totalSpentInBooks") || "",
       });
     }
   }, [studentDetails, isEditing]);
